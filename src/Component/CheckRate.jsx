@@ -20,14 +20,14 @@ export default function CheckRate({
   logged,
   setLogged,
   handleLogged,
+  currency,
+  sendField,
+  receiveField,
 }) {
-  const currency = useCurrency();
-
   const filterdCountriesSender = useSearch(currency.searchFrom);
   const filterdCountriesReciver = useSearch(currency.searchTo);
 
-  const sendField = useAmountInput("");
-  const receiveField = useAmountInput("");
+  const [isLogged, setIsLogged] = useState(false);
 
   const { result, rate, changePercent } = useExchageRate(
     currency.fromSelectedCurrency,
@@ -40,10 +40,15 @@ export default function CheckRate({
     receiveField.setValue(result || "");
   }, [result]);
 
-  // function handleLogged() {
-  //   setLogged(true);
-  //   setTimeout(() => setLogged(false), 500);
-  // }
+  function handleLogClick() {
+    handleLogged(currency.fromSelectedCurrency, currency.toSelectedCurrency);
+
+    setIsLogged(true);
+
+    setTimeout(() => {
+      setIsLogged(false);
+    }, 500);
+  }
 
   function handleReverse() {
     currency.setFromSelectedCurrency(currency.toSelectedCurrency);
@@ -227,20 +232,17 @@ export default function CheckRate({
 
               <div
                 className={`flex cursor-pointer items-center gap-2 rounded-lg border border-[#CEF739] px-2 py-1 ${
-                  logged ? "bg-[#CEF739] text-black" : "hover:bg-[#283300]"
+                  isLogged ? "bg-[#CEF739] text-black" : "hover:bg-[#283300]"
                 }`}
               >
-                {logged && <img className="w-3" src="./mark.png" alt="mark" />}
+                {isLogged && (
+                  <img className="w-3" src="./mark.png" alt="mark" />
+                )}
                 <button
-                  onClick={() =>
-                    handleLogged(
-                      currency.fromSelectedCurrency,
-                      currency.toSelectedCurrency,
-                    )
-                  }
+                  onClick={() => handleLogClick()}
                   className="cursor-pointer"
                 >
-                  {logged ? "Logged" : "LOG CONVERSION"}
+                  {isLogged ? "Logged" : "LOG CONVERSION"}
                 </button>
               </div>
             </div>

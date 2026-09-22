@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-export default function DropDown({ setSelectedOption, selectedOption }) {
+export default function DropDown({
+  setSelectedOption,
+  selectedOption,
+  favorited,
+  logged,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTitle, setSelectedTitle] = useState("HISTORY");
 
@@ -78,7 +83,7 @@ export default function DropDown({ setSelectedOption, selectedOption }) {
           >
             FAVORITES
             <span className="flex justify-center bg-[#283300] text-[#cef739] items-center w-7 h-7 rounded-full">
-              10
+              {favorited.length}
             </span>
           </p>
 
@@ -88,7 +93,7 @@ export default function DropDown({ setSelectedOption, selectedOption }) {
           >
             LOG
             <span className="flex justify-center bg-[#283300] text-[#cef739] items-center w-7 h-7 rounded-full">
-              8
+              {logged.length}
             </span>
           </p>
         </div>
@@ -129,7 +134,7 @@ export default function DropDown({ setSelectedOption, selectedOption }) {
         >
           FAVORITES
           <span className="flex items-center justify-center bg-[#283300] text-[#cef739] items-center w-7 h-7 rounded-full">
-            10
+            {favorited.length}
           </span>
         </p>
 
@@ -143,7 +148,7 @@ export default function DropDown({ setSelectedOption, selectedOption }) {
         >
           LOG
           <span className="flex justify-center bg-[#283300] text-[#cef739] items-center w-7 h-7 rounded-full">
-            8
+            {logged.length}
           </span>
         </p>
       </div>

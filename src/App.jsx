@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./Component/Header";
 import Logo from "./Component/Logo";
 import CheckRate from "./Component/CheckRate";
@@ -12,12 +12,18 @@ import Favroite from "./Component/Favroite";
 import Log from "./Component/Log";
 import { data } from "./data/data.js";
 import useCurrency from "./hooks/useCurrency.js";
+import useAmountInput from "./hooks/useAmountInput.js";
 function App() {
   const [selectedOption, setSelectedOption] = useState("history");
   const [selectedCountry] = useState(data);
   const [logged, setLogged] = useState([]);
 
   const [favorited, setFavorited] = useState([]);
+
+  const currency = useCurrency();
+
+  const sendField = useAmountInput("");
+  const receiveField = useAmountInput("");
 
   function handleFavorite(
     senderCurrency,
@@ -50,28 +56,58 @@ function App() {
     });
   }
 
+  function handleAllClearLogged() {
+    setLogged([]);
+  }
+
+  function handleDeleteLog(senderCurrency, receiverCurrency) {
+    setLogged((prevLogged) =>
+      prevLogged.filter(
+        (log) =>
+          log.senderCurrency !== senderCurrency ||
+          log.receiverCurrency !== receiverCurrency,
+      ),
+    );
+  }
+
+  function handleDeleteFavorite(senderCurrency, receiverCurrency) {
+    setFavorited((favorited) =>
+      favorited.filter(
+        (favroite) =>
+          favroite.senderCurrency !== senderCurrency ||
+          favroite.receiverCurrency !== receiverCurrency,
+      ),
+    );
+  }
+
   function handleLogged(senderCurrency, receiverCurrency) {
     const newLogged = {
+      senderValue: sendField.value,
+      receiveValue: receiveField.value,
       senderCurrency,
       receiverCurrency,
+      createdAt: Date.now(),
     };
 
     setLogged((prevLogged) => {
       const alreadyLogged = prevLogged.some(
         (logged) =>
           logged.senderCurrency === newLogged.senderCurrency &&
-          logged.receiverCurrency === newLogged.receiverCurrency,
+          logged.receiverCurrency === newLogged.receiverCurrency &&
+          sendField.value === logged.senderValue &&
+          logged.receiveValue === newLogged.receiveValue,
       );
       if (alreadyLogged) {
-        const deleteLogged = prevFavroited.filter(
-          (logged) =>
-            logged.senderCurrency !== newLogged.senderCurrency ||
-            logged.receiverCurrency !== newLogged.receiverCurrency,
-        );
-        return deleteLogged;
+        return prevLogged;
+        // const deleteLogged = prevLogged.filter(
+        //   (log) =>
+        //     log.senderCurrency !== newLogged.senderCurrency ||
+        //     log.receiverCurrency !== newLogged.receiverCurrency,
+        // );
+        // return deleteLogged;
       }
 
-      return [...logged, newLogged];
+      return [...prevLogged, newLogged];
     });
   }
 
@@ -90,16 +126,31 @@ function App() {
           favorited={favorited}
           setFavorited={setFavorited}
           handleFavorite={handleFavorite}
+          currency={currency}
+          sendField={sendField}
+          receiveField={receiveField}
         />
         <DropDown
           selectedOption={selectedOption}
           setSelectedOption={setSelectedOption}
+          favorited={favorited}
+          logged={logged}
         />
         {selectedOption === "history" && <History />}
         {selectedOption === "compare" && <Compare />}
-        {selectedOption === "favroites" && <Favroite favorited={favorited} />}
+        {selectedOption === "favroites" && (
+          <Favroite
+            favorited={favorited}
+            handleDeleteFavorite={handleDeleteFavorite}
+          />
+        )}
         {selectedOption === "logs" && (
-          <Log logged={logged} setLogged={setLogged} />
+          <Log
+            handleAllClearLogged={handleAllClearLogged}
+            logged={logged}
+            setLogged={setLogged}
+            handleDeleteLog={handleDeleteLog}
+          />
         )}
       </Main>
       <Footer className="md:hidden" />

@@ -8,7 +8,7 @@ export default function CurrencyItem({
   function handleSelect() {
     setSelectedCurrency(country.currency);
     setIsOpen(false);
-    onFavorited([]);
+    // onFavorited([]);
   }
 
   return (
