@@ -137,7 +137,9 @@ function App() {
           logged={logged}
         />
         {selectedOption === "history" && <History />}
-        {selectedOption === "compare" && <Compare />}
+        {selectedOption === "compare" && (
+          <Compare handleFavorite={handleFavorite} favorited={favorited} />
+        )}
         {selectedOption === "favroites" && (
           <Favroite
             favorited={favorited}
