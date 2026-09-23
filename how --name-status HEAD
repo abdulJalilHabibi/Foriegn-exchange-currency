@@ -1,0 +1,17 @@
+[33mcommit 5a8d3fb72a4e4f5a2b6b488754c327b6ef15b0bc[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: abdulJalilHabibi <abduljalilhabibi230@gmail.com>
+Date:   Wed Sep 23 18:26:14 2026 +0430
+
+    developed history,Error,Loading,component and created useHistoryRate hook
+
+M	package-lock.json
+M	package.json
+M	src/App.jsx
+M	src/Component/CheckRate.jsx
+A	src/Component/CustomTooltip.jsx
+A	src/Component/Error.jsx
+M	src/Component/History.jsx
+A	src/Component/HistoryLoading.jsx
+A	src/Component/Loading.jsx
+A	src/hooks/useHistoryRate.js
+M	src/index.css
