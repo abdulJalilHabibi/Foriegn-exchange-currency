@@ -35,6 +35,8 @@ export default function CheckRate({
     sendField.value,
   );
 
+  
+
   // sync درست با useEffect به‌جای setState داخل render
   useEffect(() => {
     receiveField.setValue(result || "");

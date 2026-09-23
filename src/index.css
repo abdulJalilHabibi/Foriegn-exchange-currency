@@ -19,3 +19,22 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+.custom-tooltip {
+  background: #171719 !important;
+  border: 1px solid #2a2a2c !important;
+  border-radius: 12px;
+  padding: 10px 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+.tooltip-date {
+  color: #888888 !important;
+  font-size: 12px;
+  margin: 0 0 4px 0;
+}
+.tooltip-rate {
+  color: #cef739 !important;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  margin: 0;
+}

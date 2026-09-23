@@ -11,6 +11,7 @@ import Compare from "./Component/Compare";
 import Favroite from "./Component/Favroite";
 import Log from "./Component/Log";
 import { data } from "./data/data.js";
+import "./index.css";
 import useCurrency from "./hooks/useCurrency.js";
 import useAmountInput from "./hooks/useAmountInput.js";
 function App() {
@@ -136,7 +137,7 @@ function App() {
           favorited={favorited}
           logged={logged}
         />
-        {selectedOption === "history" && <History />}
+        {selectedOption === "history" && <History currency={currency} />}
         {selectedOption === "compare" && (
           <Compare handleFavorite={handleFavorite} favorited={favorited} />
         )}
